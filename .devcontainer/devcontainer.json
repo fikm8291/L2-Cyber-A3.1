@@ -1,8 +1,6 @@
 {
   "name": "User Access Control Lab",
-
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-
+  
   "customizations": {
     "vscode": {
       "settings": {
