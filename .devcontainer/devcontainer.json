@@ -1,20 +1,6 @@
 {
   "name": "User Access Control Lab",
-  
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "editor.wordWrap": "on"
-      },
-      "extensions": [
-        "redhat.vscode-yaml",
-        "streetsidesoftware.code-spell-checker"
-      ]
-    }
-  },
-
-  "postCreateCommand": "bash scripts/setup.sh && chmod +x scripts/*.sh",
-
-  "remoteUser": "vscode"
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash scripts/setup.sh && chmod +x scripts/*.sh"
 }
