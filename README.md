@@ -20,15 +20,15 @@ The company stores sensitive data across several departments:
 - Management
 - Public information
 
-At the moment, all staff can access all folders. This is a security risk.
+Currently, every employee can access every folder, regardless of their department. This is a security risk because confidential information should only be available to authorised staff.
 
 Your task is to secure the system using:
 
-- Users
-- Groups
-- Linux file permissions
+- Linux users
+- Linux groups
+- File and directory permissions
 
-You will complete all work inside a GitHub Codespace using Linux commands.
+All work must be completed inside a GitHub Codespace using Linux commands.
 
 ---
 
@@ -36,34 +36,41 @@ You will complete all work inside a GitHub Codespace using Linux commands.
 
 This assessment is automatically checked using a script.
 
-### For EVERY task you must:
+For **every task** you should:
 
-1. Complete the task using Linux commands
-2. Run the check script
-3. Take a screenshot of the output
-4. Save it in the evidence/ folder
+1. Complete the task using Linux commands.
+2. Run the checking script.
+3. Review the output to see what has passed or failed.
+4. Take a screenshot.
+5. Save the screenshot in the **evidence/** folder.
 
 ---
 
-## The command you will run after EVERY task
+## Run this command after EVERY task
 
+```bash
 bash scripts/check.sh
+```
 
-This script will show:
-- What you have completed correctly
-- What still needs fixing
+The script will tell you:
+
+- ✓ What has been completed correctly
+- ✗ What still needs fixing
 - Your current score
 
 ---
 
-## Evidence Rules
+# Evidence Rules
 
-All screenshots must be saved in:
+Save all screenshots inside:
 
+```
 evidence/
+```
 
-Each screenshot must be named exactly:
+Use these filenames exactly:
 
+```
 task1.png
 task2.png
 task3.png
@@ -72,13 +79,15 @@ task5.png
 task6.png
 task7.png
 task8.png
+```
 
-Do NOT create subfolders.
+Do **not** create any additional folders.
 
 ---
 
-# Folder Structure
+# Existing Folder Structure
 
+```
 company/
 ├── Finance
 ├── HR
@@ -87,52 +96,136 @@ company/
 └── Public
 
 secret/
+```
 
 ---
 
-# Helpful Command Guide (Use During Tasks)
+# Helpful Command Guide
 
-## Navigation commands
+## Explore the filesystem
+
+```bash
 pwd
 ls
 ls -l
 tree
+```
+
+Useful for checking:
+
+- Current directory
+- Existing folders
+- File permissions
+- Owners and groups
 
 ---
 
 ## Create users
-sudo adduser username
 
-Check user exists:
+```bash
+sudo adduser username
+```
+
+Example:
+
+```bash
+sudo adduser hr_user
+```
+
+Check that the user exists:
+
+```bash
 id username
+```
 
 ---
 
 ## Create groups
-sudo groupadd groupname
 
-Check groups:
+```bash
+sudo groupadd groupname
+```
+
+Example:
+
+```bash
+sudo groupadd hr
+```
+
+List a user's groups:
+
+```bash
 groups username
+```
 
 ---
 
-## Add user to group
+## Add users to groups
+
+```bash
 sudo usermod -aG groupname username
+```
+
+Example:
+
+```bash
+sudo usermod -aG hr hr_user
+```
 
 Verify:
-groups username
+
+```bash
+groups hr_user
+```
 
 ---
 
-## Permissions and ownership
-ls -l
-chmod
-chown
+## Change ownership
+
+```bash
+sudo chown owner:group folder
+```
 
 Examples:
-chmod 750 foldername
-chmod 755 foldername
-chown user:group foldername
+
+```bash
+sudo chown :finance company/Finance
+sudo chown root:marketing company/Marketing
+```
+
+You can leave the owner unchanged if only the group needs changing.
+
+---
+
+## Change permissions
+
+```bash
+chmod permissions folder
+```
+
+Examples:
+
+```bash
+chmod 750 folder
+chmod 770 folder
+chmod 755 folder
+```
+
+Remember what the numbers represent:
+
+| Number | Permission |
+|---------|------------|
+| 7 | Read, Write, Execute |
+| 6 | Read, Write |
+| 5 | Read, Execute |
+| 4 | Read only |
+| 0 | No access |
+
+You may find it helpful to think about:
+
+- Should the owner be able to edit?
+- Should members of the department be able to access the folder?
+- Should everyone else be blocked?
 
 ---
 
@@ -142,182 +235,290 @@ chown user:group foldername
 
 ## Task 1 – Inspect the system
 
-Explore the folder structure.
+Explore the existing folder structure.
 
 Useful commands:
+
+```bash
 ls
-tree
 ls -l
+tree
+pwd
+```
 
-Think about:
-- Who currently has access?
-- Are permissions too open?
+Look carefully at:
 
-Then run:
+- The folders that already exist
+- Current owners
+- Current groups
+- Current permissions
 
+Ask yourself:
+
+- Who can currently access these folders?
+- Are any permissions too open?
+
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task1.png
+```
 
 ---
 
 ## Task 2 – Create users
 
-Create users for each department.
+Create users to represent staff in each department.
 
-Think about:
-- One user per department OR multiple users
-- Clear naming (e.g. hr_user1, finance_user1)
+Choose clear, meaningful usernames.
 
-Example:
+Examples include names such as:
+
+- hr_user
+- finance_user
+- marketing_user
+
+(You may choose your own naming convention.)
+
+Useful commands:
+
+```bash
 sudo adduser username
-
-Check:
 id username
+```
 
-Then run:
+Check that each user has been created successfully before moving on.
 
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task2.png
+```
 
 ---
 
 ## Task 3 – Create groups
 
-Create groups for each department.
+Create a group for each department.
 
-Example:
-sudo groupadd hr
-sudo groupadd finance
+After creating the groups:
 
-Add users:
-sudo usermod -aG hr username
+- Add the appropriate users to the correct groups.
+- Check that group membership is correct.
 
-Check:
+Useful commands:
+
+```bash
+sudo groupadd groupname
+sudo usermod -aG groupname username
 groups username
+```
 
-Then run:
+Think about:
 
+- Which user belongs in which department?
+- Does every user need to belong to every group?
+
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task3.png
+```
 
 ---
 
 ## Task 4 – Assign folder ownership
 
-Assign each folder to its correct group.
+Each department folder should belong to the correct department group.
 
-Example:
-chown :hr company/HR
+Useful commands:
 
-Check:
+```bash
+sudo chown :group folder
 ls -l company
+```
 
-Then run:
+Check that:
 
+- Each folder has the correct group owner.
+- The changes have been applied successfully.
+
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task4.png
+```
 
 ---
 
 ## Task 5 – Set permissions
 
-Set correct folder permissions using groups.
+Configure suitable permissions for each department folder.
 
-Think about:
-- Who should read?
-- Who should write?
-- Who should be blocked?
+Consider:
 
-Example formats:
+- Should department members be able to read only?
+- Should they also be able to create or edit files?
+- Should users outside the department have access?
+
+Useful commands:
+
+```bash
+chmod
+ls -l
+```
+
+Examples of permission formats:
+
+```bash
 chmod 750 folder
 chmod 770 folder
 chmod 755 folder
+```
 
-Check:
-ls -l
+You do **not** have to use these exact values—choose permissions that meet the requirements.
 
-Then run:
+Run:
 
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task5.png
+```
 
 ---
 
-## Task 6 – Secure secret folder
+## Task 6 – Secure the secret folder
 
-The secret folder must only be accessible by the owner.
+The **secret** folder should only be accessible by its owner.
 
-Example:
-chmod 700 secret
+Check your work using:
 
-Check:
+```bash
 ls -ld secret
+```
 
-Then run:
+Think about:
 
+- Who should be able to enter this directory?
+- Should anyone else have any permissions?
+
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task6.png
+```
 
 ---
 
 ## Task 7 – Test access
 
-Switch users and test access.
+Test your security configuration by switching to different users.
 
-Commands:
+Useful commands:
+
+```bash
 su username
 whoami
-cd folder
+cd
 ls
+```
 
-Think about:
-- Can the wrong users access restricted folders?
+Try accessing folders that:
 
-Then run:
+- The user should be allowed to access.
+- The user should **not** be allowed to access.
 
+If something doesn't work as expected, review the permissions before running the checker.
+
+Run:
+
+```bash
 bash scripts/check.sh
+```
 
-Save screenshot:
+Save:
+
+```
 evidence/task7.png
+```
 
 ---
 
 ## Task 8 – Final verification
 
-Run final check:
+Run one final check:
 
+```bash
 bash scripts/check.sh
+```
 
-Make sure everything shows correct.
+Aim for every check to pass before submitting.
 
-Save screenshot:
+If any checks fail:
+
+- Read the feedback carefully.
+- Correct the problem.
+- Run the script again.
+
+Save:
+
+```
 evidence/task8.png
+```
 
 ---
 
-# Final Reminder
+# Before You Submit
 
-After EVERY task:
+For every task, make sure you have:
 
-- Complete task
-- Run check script
-- Take screenshot
-- Save in evidence/
+- Completed the required Linux commands
+- Run the checking script
+- Saved the required screenshot
 
 ---
 
-Goal:
+# Goal
 
-Ensure the right users have the right access to the right folders using Linux users, groups, and permissions.
+By the end of this assessment you should have created a secure Linux access control system where:
+
+- Users represent employees.
+- Groups represent departments.
+- Department folders are owned by the correct groups.
+- Permissions restrict unauthorised access.
+- Sensitive information is protected using Linux permissions.
