@@ -1,17 +1,13 @@
 #!/bin/bash
 
+echo ""
 echo "Resetting assessment..."
 
 rm -rf company
-
 rm -rf secret
-
-rm -rf evidence/screenshots
-
-mkdir -p evidence/screenshots
+rm -rf evidence
 
 bash scripts/setup.sh
 
 echo ""
-
-echo "Assessment reset."
+echo "Assessment has been reset."
