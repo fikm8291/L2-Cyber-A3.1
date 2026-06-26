@@ -37,7 +37,7 @@ By completing this assessment, you will demonstrate:
 - How Linux users and groups control access  
 - How file ownership affects security  
 - How permissions restrict access  
-- How to apply least privilege in a real system  
+- How to apply least privilege  
 - How to test and verify security configurations  
 
 ---
@@ -60,7 +60,7 @@ bash scripts/setup.sh
 
 ## Reset if needed
 
-If you make a mistake, reset the environment:
+If you make a mistake:
 
 ```bash
 bash scripts/reset.sh
@@ -68,13 +68,55 @@ bash scripts/reset.sh
 
 ---
 
-## Check your progress
+# How This Assessment Works
 
-At any point, you can verify your work:
+This assessment is **automatically checked**.
+
+You do NOT need to complete written answers or submit separate screenshots for each task.
+
+Instead:
+
+### You will:
+
+1. Complete the required configuration tasks
+2. Run the checker script
+3. Review the results
+4. Take a screenshot of the output
+
+---
+
+### You MUST run this command after each task attempt:
 
 ```bash
 bash scripts/check.sh
 ```
+
+---
+
+### Evidence Requirement
+
+You must take screenshots of the checker output.
+
+### Save ALL screenshots in:
+
+```
+evidence/
+```
+
+### Naming convention:
+
+```
+task1.png
+task2.png
+task3.png
+task4.png
+task5.png
+task6.png
+task7.png
+task8.png
+```
+
+Each screenshot should show your progress after improving your system.
 
 ---
 
@@ -95,61 +137,38 @@ secret/
 
 ---
 
-# Evidence Rules (IMPORTANT)
+# What You Are Building
 
-You must take screenshots during the assessment.
+You are building a real Linux access control system using:
 
-### Rules:
+- Users for each department  
+- Groups for each department  
+- File ownership control  
+- Linux file permissions  
 
-- All screenshots must be saved in:
-  ```
-  evidence/
-  ```
+Your goal is to ensure:
 
-- Do NOT place screenshots in subfolders
-
-- Each screenshot must be named exactly:
-
-```
-task1.png
-task2.png
-task3.png
-task4.png
-task5.png
-task6.png
-task7.png
-task8.png
-```
-
-### Example:
-
-```
-evidence/task1.png
-evidence/task2.png
-evidence/task3.png
-...
-```
+> Only the correct users can access the correct data.
 
 ---
 
 # Your Tasks
 
+You do NOT need to follow tasks strictly one-by-one in order, but the system is structured as follows:
+
 ---
 
-## Task 1 – Inspect the System
+## Task 1 – System Setup Check
 
-Use the following commands to explore the system:
+Verify base folders exist and system is ready.
+
+Run:
 
 ```bash
-pwd
-ls
-ls -l
-tree
+bash scripts/check.sh
 ```
 
-Take a screenshot showing the current structure and permissions.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task1.png
@@ -157,22 +176,17 @@ evidence/task1.png
 
 ---
 
-## Task 2 – Create Department Users
+## Task 2 – User Accounts
 
-Create users for each department:
+Create required department users.
 
-- hr_user  
-- finance_user  
-- marketing_user  
-- management_user  
+Then run:
 
-Use Linux user management commands.
+```bash
+bash scripts/check.sh
+```
 
-After creating users, verify they exist.
-
-Take a screenshot showing user creation or confirmation.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task2.png
@@ -180,22 +194,17 @@ evidence/task2.png
 
 ---
 
-## Task 3 – Create Department Groups
+## Task 3 – Groups
 
-Create groups for each department:
+Create department groups and assign users.
 
-- hr  
-- finance  
-- marketing  
-- management  
+Then run:
 
-Assign each user to the correct group.
+```bash
+bash scripts/check.sh
+```
 
-Verify group membership.
-
-Take a screenshot showing group creation or assignment results.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task3.png
@@ -203,18 +212,17 @@ evidence/task3.png
 
 ---
 
-## Task 4 – Assign Folder Ownership
+## Task 4 – Folder Ownership
 
-Each department folder must belong to its matching group.
+Assign correct group ownership to department folders.
 
-You will:
+Then run:
 
-- Change group ownership of folders  
-- Match each folder to the correct department group  
+```bash
+bash scripts/check.sh
+```
 
-Take a screenshot showing folder ownership details.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task4.png
@@ -222,19 +230,17 @@ evidence/task4.png
 
 ---
 
-## Task 5 – Set Folder Permissions
+## Task 5 – Permissions
 
-Configure permissions so that:
+Apply correct Linux permissions to department folders.
 
-- Each department can access its own folder  
-- Other departments cannot access restricted folders  
-- Public folder remains accessible to everyone  
+Then run:
 
-Use Linux permission commands appropriately.
+```bash
+bash scripts/check.sh
+```
 
-Take a screenshot showing final permissions.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task5.png
@@ -242,15 +248,17 @@ evidence/task5.png
 
 ---
 
-## Task 6 – Secure the Secret Folder
+## Task 6 – Secure Secret Folder
 
-The `secret` folder contains highly sensitive data.
+Lock down the `secret` folder so only the owner can access it.
 
-It must be fully restricted so that only the owner can access it.
+Then run:
 
-Take a screenshot showing its permissions.
+```bash
+bash scripts/check.sh
+```
 
-Save as:
+Take screenshot:
 
 ```
 evidence/task6.png
@@ -258,25 +266,17 @@ evidence/task6.png
 
 ---
 
-## Task 7 – Test User Access
+## Task 7 – Access Testing
 
-Switch between users and test access:
+Test access using different users (switch accounts).
+
+Then run:
 
 ```bash
-su - hr_user
+bash scripts/check.sh
 ```
 
-Test access to:
-- HR folder  
-- Finance folder  
-- Public folder  
-- Secret folder  
-
-Repeat with at least one other user.
-
-Take a screenshot showing at least one successful or blocked access test.
-
-Save as:
+Take screenshot:
 
 ```
 evidence/task7.png
@@ -284,22 +284,15 @@ evidence/task7.png
 
 ---
 
-## Task 8 – Final Verification
+## Task 8 – Final System Check
 
-Run:
+Run the final verification:
 
 ```bash
-ls -l company
-ls -ld company/*
 bash scripts/check.sh
 ```
 
-Take a final screenshot showing:
-
-- final permissions  
-- or check script output  
-
-Save as:
+Take final screenshot:
 
 ```
 evidence/task8.png
@@ -322,7 +315,6 @@ tree
 ```bash
 sudo adduser username
 id username
-whoami
 ```
 
 ## Groups
@@ -347,12 +339,12 @@ ls -l
 
 Before submitting, ensure:
 
-- [ ] All users created  
-- [ ] All groups created  
-- [ ] Users assigned correctly  
-- [ ] Folder ownership configured  
-- [ ] Permissions set correctly  
-- [ ] Secret folder secured  
-- [ ] User access tested  
-- [ ] All screenshots saved in `evidence/`  
-- [ ] `bash scripts/check.sh` runs successfully  
+- [ ] All required users exist  
+- [ ] All required groups exist  
+- [ ] Users are assigned correctly  
+- [ ] Folder ownership is correct  
+- [ ] Permissions are correctly configured  
+- [ ] Secret folder is secured  
+- [ ] You have run `bash scripts/check.sh` multiple times  
+- [ ] All screenshots are saved in `evidence/`  
+- [ ] Each screenshot is named correctly (task1–task8)  
