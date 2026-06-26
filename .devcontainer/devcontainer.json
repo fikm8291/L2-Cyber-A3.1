@@ -1,7 +1,10 @@
 {
   "name": "User Access Control Lab",
 
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18-bullseye",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/jshint:2": {}
+  },
 
   "customizations": {
     "vscode": {
