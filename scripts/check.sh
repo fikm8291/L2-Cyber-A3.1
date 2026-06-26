@@ -168,9 +168,8 @@ echo " FINAL SCORE: $score / $total"
 echo "========================================"
 echo ""
 
-# This is the key for GitHub Classroom scoring
-echo "Score: $score/$total"
+# ✅ This line tells GitHub the actual score
+echo "::set-output name=score::$score"
 
-# Always exit 0 so partial marks count
+# ✅ Exit cleanly
 exit 0
-``
