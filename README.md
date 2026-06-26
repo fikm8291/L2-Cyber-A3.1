@@ -12,7 +12,7 @@
 
 You are working as a **Junior IT Technician** for **Northbridge Training Ltd.**
 
-The company stores sensitive data across multiple departments:
+The company stores sensitive data across several departments:
 
 - HR  
 - Finance  
@@ -20,72 +20,30 @@ The company stores sensitive data across multiple departments:
 - Management  
 - Public information  
 
-At the moment, all staff can access all folders. This is a serious security risk.
+At the moment, all staff can access all folders. This is a security risk.
 
-Your task is to design and implement a secure Linux access control system using:
+Your task is to secure the system using:
 
 - Users  
 - Groups  
-- File permissions  
+- Linux file permissions  
 
 ---
 
-# Learning Objectives
+# How This Assessment Works (VERY IMPORTANT)
 
-By completing this assessment, you will demonstrate:
+This assessment is **checked using an automated script**.
 
-- How Linux users and groups control access  
-- How file ownership affects security  
-- How permissions restrict access  
-- How to apply least privilege  
-- How to test and verify security configurations  
+### For EVERY task you must:
 
----
-
-# Before You Begin
-
-This assessment is completed entirely inside your GitHub Codespace.
-
-Open the terminal before starting.
+1. Complete the task  
+2. Run the check script  
+3. Take a screenshot of the output  
+4. Save it in the `evidence/` folder  
 
 ---
 
-## Setup the environment
-
-```bash
-bash scripts/setup.sh
-```
-
----
-
-## Reset if needed
-
-If you make a mistake:
-
-```bash
-bash scripts/reset.sh
-```
-
----
-
-# How This Assessment Works
-
-This assessment is **automatically checked**.
-
-You do NOT need to complete written answers or submit separate screenshots for each task.
-
-Instead:
-
-### You will:
-
-1. Complete the required configuration tasks
-2. Run the checker script
-3. Review the results
-4. Take a screenshot of the output
-
----
-
-### You MUST run this command after each task attempt:
+## The command you will use after EVERY task:
 
 ```bash
 bash scripts/check.sh
@@ -93,17 +51,15 @@ bash scripts/check.sh
 
 ---
 
-### Evidence Requirement
+## Evidence Rules
 
-You must take screenshots of the checker output.
-
-### Save ALL screenshots in:
+You MUST save screenshots in:
 
 ```
 evidence/
 ```
 
-### Naming convention:
+Each screenshot must be named:
 
 ```
 task1.png
@@ -116,13 +72,9 @@ task7.png
 task8.png
 ```
 
-Each screenshot should show your progress after improving your system.
-
 ---
 
 # Folder Structure
-
-You will be working with:
 
 ```
 company/
@@ -137,48 +89,13 @@ secret/
 
 ---
 
-# What You Are Building
-
-You are building a real Linux access control system using:
-
-- Users for each department  
-- Groups for each department  
-- File ownership control  
-- Linux file permissions  
-
-Your goal is to ensure:
-
-> Only the correct users can access the correct data.
-
----
-
 # Your Tasks
 
-You do NOT need to follow tasks strictly one-by-one in order, but the system is structured as follows:
-
 ---
 
-## Task 1 – System Setup Check
+## Task 1 – Start and Inspect System
 
-Verify base folders exist and system is ready.
-
-Run:
-
-```bash
-bash scripts/check.sh
-```
-
-Take screenshot:
-
-```
-evidence/task1.png
-```
-
----
-
-## Task 2 – User Accounts
-
-Create required department users.
+Explore the system using Linux commands.
 
 Then run:
 
@@ -186,7 +103,25 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
+
+```
+evidence/task1.png
+```
+
+---
+
+## Task 2 – Create Users
+
+Create the required department users.
+
+Then run:
+
+```bash
+bash scripts/check.sh
+```
+
+Take a screenshot and save as:
 
 ```
 evidence/task2.png
@@ -194,7 +129,7 @@ evidence/task2.png
 
 ---
 
-## Task 3 – Groups
+## Task 3 – Create Groups
 
 Create department groups and assign users.
 
@@ -204,7 +139,7 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task3.png
@@ -212,9 +147,9 @@ evidence/task3.png
 
 ---
 
-## Task 4 – Folder Ownership
+## Task 4 – Set Folder Ownership
 
-Assign correct group ownership to department folders.
+Assign each folder to the correct group.
 
 Then run:
 
@@ -222,7 +157,7 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task4.png
@@ -230,9 +165,9 @@ evidence/task4.png
 
 ---
 
-## Task 5 – Permissions
+## Task 5 – Set Permissions
 
-Apply correct Linux permissions to department folders.
+Apply correct Linux permissions to each folder.
 
 Then run:
 
@@ -240,7 +175,7 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task5.png
@@ -250,7 +185,7 @@ evidence/task5.png
 
 ## Task 6 – Secure Secret Folder
 
-Lock down the `secret` folder so only the owner can access it.
+Restrict the `secret` folder so only the owner can access it.
 
 Then run:
 
@@ -258,7 +193,7 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task6.png
@@ -266,9 +201,9 @@ evidence/task6.png
 
 ---
 
-## Task 7 – Access Testing
+## Task 7 – Test Access
 
-Test access using different users (switch accounts).
+Switch users and test folder access.
 
 Then run:
 
@@ -276,7 +211,7 @@ Then run:
 bash scripts/check.sh
 ```
 
-Take screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task7.png
@@ -284,7 +219,7 @@ evidence/task7.png
 
 ---
 
-## Task 8 – Final System Check
+## Task 8 – Final Check
 
 Run the final verification:
 
@@ -292,7 +227,7 @@ Run the final verification:
 bash scripts/check.sh
 ```
 
-Take final screenshot:
+Take a screenshot and save as:
 
 ```
 evidence/task8.png
@@ -339,12 +274,12 @@ ls -l
 
 Before submitting, ensure:
 
-- [ ] All required users exist  
-- [ ] All required groups exist  
-- [ ] Users are assigned correctly  
-- [ ] Folder ownership is correct  
-- [ ] Permissions are correctly configured  
-- [ ] Secret folder is secured  
-- [ ] You have run `bash scripts/check.sh` multiple times  
-- [ ] All screenshots are saved in `evidence/`  
-- [ ] Each screenshot is named correctly (task1–task8)  
+- [ ] All users created  
+- [ ] All groups created  
+- [ ] Users assigned correctly  
+- [ ] Folder ownership correct  
+- [ ] Permissions correct  
+- [ ] Secret folder secured  
+- [ ] `bash scripts/check.sh` run after every task  
+- [ ] All screenshots saved in `evidence/`  
+- [ ] Filenames match task numbers  
