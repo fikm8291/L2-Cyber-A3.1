@@ -1,4 +1,4 @@
-"# AC 3.1 Assessment - User & Group Access Control System
+# AC 3.1 Assessment - User & Group Access Control System
 
 ## Unit Learning Outcome
 
@@ -321,4 +321,3 @@ After EVERY task:
 Goal:
 
 Ensure the right users have the right access to the right folders using Linux users, groups, and permissions.
-"
