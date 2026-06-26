@@ -1,11 +1,17 @@
 #!/bin/bash
 
-echo "Resetting lab..."
+echo "Resetting assessment..."
 
 rm -rf company
+
 rm -rf secret
+
+rm -rf evidence/screenshots
+
+mkdir -p evidence/screenshots
 
 bash scripts/setup.sh
 
 echo ""
-echo "Lab reset complete."
+
+echo "Assessment reset."
