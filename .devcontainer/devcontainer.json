@@ -1,10 +1,7 @@
 {
   "name": "User Access Control Lab",
 
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18-bullseye",
-  "features": {
-    "ghcr.io/devcontainers-contrib/features/jshint:2": {}
-  },
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
   "customizations": {
     "vscode": {
@@ -13,14 +10,13 @@
         "editor.wordWrap": "on"
       },
       "extensions": [
-        "ms-vscode.remote-containers",
         "redhat.vscode-yaml",
         "streetsidesoftware.code-spell-checker"
       ]
     }
   },
 
-  "postCreateCommand": "bash scripts/setup.sh",
+  "postCreateCommand": "bash scripts/setup.sh && chmod +x scripts/*.sh",
 
   "remoteUser": "vscode"
 }
