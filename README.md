@@ -1,4 +1,4 @@
-# AC 3.1 Assessment - Create a User Access Control System
+# AC 3.1 Assessment - User & Group Access Control System
 
 ## Unit Learning Outcome
 
@@ -12,17 +12,23 @@
 
 You are working as a **Junior IT Technician** for **Northbridge Training Ltd.**
 
-The company stores confidential data across several departments, including HR, Finance, Marketing, and Management.
+The company stores sensitive data across multiple departments:
 
-At present, all staff can access all folders. This creates a serious security risk, as sensitive information such as payroll and HR records is not protected.
+- HR  
+- Finance  
+- Marketing  
+- Management  
+- Public information  
 
-Your task is to secure the file server using Linux file permissions.
+At the moment, the file server is not properly secured. Anyone can access most folders, which creates a serious security risk.
 
-You must ensure that:
+Your job is to design and implement a **realistic Linux access control system** using:
 
-- Data is protected from unauthorised access  
-- Staff can still access the files they need  
-- The principle of least privilege is followed  
+- Users  
+- Groups  
+- File permissions  
+
+You must ensure that only the correct departments can access their own data.
 
 ---
 
@@ -30,11 +36,11 @@ You must ensure that:
 
 By completing this assessment, you will demonstrate:
 
-- Understanding of Linux file permissions  
-- Ability to restrict access using ownership and permissions  
-- Application of the principle of least privilege  
-- Ability to test and verify security settings  
-- Ability to explain security decisions clearly  
+- How Linux users and groups are used in access control  
+- How file ownership affects security  
+- How file permissions enforce restrictions  
+- How to apply least privilege in a real system  
+- How to test and verify access control systems  
 
 ---
 
@@ -42,21 +48,33 @@ By completing this assessment, you will demonstrate:
 
 This assessment is completed entirely inside your GitHub Codespace.
 
-Open the terminal.
+Open the terminal before starting.
 
-If the lab needs to be set up, run:
+---
+
+## Setup the environment
+
+Run:
 
 ```bash
 bash scripts/setup.sh
 ```
 
-If you need to reset the environment at any time, run:
+---
+
+## Reset the environment (if needed)
+
+If you make a mistake or want to start again:
 
 ```bash
 bash scripts/reset.sh
 ```
 
-To check your progress at any time, run:
+---
+
+## Check your progress
+
+At any point, you can verify your work:
 
 ```bash
 bash scripts/check.sh
@@ -66,7 +84,7 @@ bash scripts/check.sh
 
 # Folder Structure
 
-You will be working with the following structure:
+You will be working with the following system:
 
 ```
 company/
@@ -81,28 +99,9 @@ secret/
 
 ---
 
-# Company Security Policy
+# Part 1 – Understand the Current System
 
-| Folder     | Access Requirement                     |
-|------------|----------------------------------------|
-| HR         | HR staff only                          |
-| Finance    | Finance staff only                     |
-| Marketing  | Marketing staff only                   |
-| Management | Management only                        |
-| Public     | Everyone can read                      |
-| Secret     | System administrator only              |
-
----
-
-# Your Tasks
-
-You must complete all tasks below.
-
----
-
-## Task 1 – Inspect the Current Permissions
-
-Use Linux commands to explore the current system:
+Start by exploring the environment:
 
 ```bash
 pwd
@@ -111,80 +110,153 @@ ls -l
 tree
 ```
 
-Take a screenshot showing the current permissions.
+You are looking to understand:
 
-Save it in:
+- Who owns each folder  
+- What permissions are currently set  
+- Which folders are exposed to all users  
 
-```
-evidence/screenshots/
-```
-
----
-
-## Task 2 – Secure the Secret Folder
-
-The `secret` folder contains highly sensitive payroll data.
-
-You must restrict access so that only the owner can access it.
-
-Think about:
-
-- Read permissions  
-- Write permissions  
-- Execute permissions  
-
-Record the commands you used in your evidence file.
+Take note of anything that looks insecure.
 
 ---
 
-## Task 3 – Configure Department Folders
+# Part 2 – Create Users for Each Department
 
-Update the permissions for each department folder.
+In this system, each department should have its own user account.
 
-You must ensure:
+Create the following users:
 
-- Confidential folders are restricted appropriately  
-- Public folders remain accessible  
-- Unnecessary access is removed  
+- hr_user  
+- finance_user  
+- marketing_user  
+- management_user  
 
-Use appropriate Linux permission commands such as `chmod` and `chown`.
+Use Linux user management commands to create them.
+
+> Hint: You may need administrator privileges (`sudo`).
+
+After creating users, verify they exist using system commands.
 
 ---
 
-## Task 4 – Verify Your Configuration
+# Part 3 – Create Department Groups
 
-Check your final permissions using:
+Each department should also have its own group.
+
+Create groups for:
+
+- hr  
+- finance  
+- marketing  
+- management  
+
+Then assign each user to the correct group.
+
+> This is important because permissions will be controlled through groups, not individual users.
+
+Verify group membership after assignment.
+
+---
+
+# Part 4 – Assign Ownership of Folders
+
+Each department folder should belong to its matching group.
+
+You will need to:
+
+- Change group ownership of each folder  
+- Ensure the correct department controls the correct folder  
+
+Example mapping:
+
+- HR folder → hr group  
+- Finance folder → finance group  
+- etc.
+
+Use ownership commands to apply these changes.
+
+---
+
+# Part 5 – Set Folder Permissions
+
+Now apply Linux permissions so that:
+
+- Departments can access their own folders  
+- Other departments cannot access restricted data  
+- Public data remains accessible to everyone  
+
+You will need to combine:
+- `chmod`
+- group ownership
+- permission settings (read/write/execute)
+
+> Think carefully about how directories behave differently from files.
+
+---
+
+# Part 6 – Secure the Secret Folder
+
+The `secret` folder contains highly sensitive information.
+
+It must be restricted so that:
+
+- Only the system administrator (or owner) can access it  
+- No department users can view it  
+
+Apply the strongest reasonable Linux permissions.
+
+---
+
+# Part 7 – Test Access Control
+
+You must now test your system.
+
+Switch between users:
 
 ```bash
-ls -l
+su - hr_user
+```
+
+Try accessing:
+- HR folder (should work)
+- Finance folder (should be restricted)
+
+Repeat this for different users.
+
+Also test:
+- Public folder access
+- Secret folder access
+
+> Your goal is to confirm the system behaves correctly, not just configure it.
+
+---
+
+# Part 8 – Final Verification
+
+Return to your main user and run:
+
+```bash
+ls -l company
 ls -ld company/*
 ```
 
-Take screenshots showing your final configuration.
+Check:
 
-Save them in:
+- Folder ownership  
+- Group assignments  
+- Permission accuracy  
 
+Run the automated checker:
+
+```bash
+bash scripts/check.sh
 ```
-evidence/screenshots/
-```
-
----
-
-## Task 5 – Written Questions
-
-Complete all answers in:
-
-```
-evidence/answers.md
-```
-
-Use full sentences and clear explanations.
 
 ---
 
 # Helpful Commands
 
-## Navigation
+## System navigation
 
 ```bash
 pwd
@@ -192,160 +264,58 @@ ls
 tree
 ```
 
+## Users
+
+```bash
+whoami
+id
+sudo adduser username
+```
+
+## Groups
+
+```bash
+groups
+sudo groupadd groupname
+sudo usermod -aG groupname username
+```
+
 ## Permissions
 
 ```bash
-ls -l
-chmod 700 folder
-chmod 755 folder
-chmod 744 file
+chmod
+chown
 ```
 
-## Ownership (if needed)
+Example formats (do not rely on these alone):
 
 ```bash
-chown
+chmod 750 folder
+chmod 700 folder
 ```
 
 ---
 
 # Evidence Checklist
 
-Before submission, ensure you have:
+Before submission, ensure:
 
-- [ ] Completed all folder permissions  
-- [ ] Taken before screenshots  
-- [ ] Taken after screenshots  
-- [ ] Completed written questions  
-- [ ] Run the check script (`bash scripts/check.sh`)  
-
----
-
-# Automatic Checker
-
-When finished, run:
-
-```bash
-bash scripts/check.sh
-```
-
-This will display your current configuration and help you verify your work.
-
----
-
-# Submission
-
-Submit your work as instructed by your teacher.
-
-Your repository must include:
-
-```
-company/
-secret/
-evidence/
-scripts/
-README.md
-```
-
----
-
-# Written Questions
-
-Answer these in:
-
-```
-evidence/answers.md
-```
-
----
-
-### Question 1
-
-What is meant by user access control?
-
----
-
-### Question 2
-
-Why should confidential data only be accessible to authorised users?
-
----
-
-### Question 3
-
-Explain the principle of least privilege.
-
----
-
-### Question 4
-
-What do the following permissions mean?
-
-```
-r =  
-w =  
-x =  
-```
-
----
-
-### Question 5
-
-Explain what this command does:
-
-```bash
-chmod 700 secret
-```
-
----
-
-### Question 6
-
-Why is it important to test permissions after changing them?
-
----
-
-### Question 7
-
-What could happen if payroll data was publicly accessible?
-
----
-
-### Question 8
-
-How does access control support data protection laws?
-
----
-
-# Extension Task (Optional)
-
-Research **Linux Access Control Lists (ACLs)**.
-
-Answer:
-
-1. What problem do ACLs solve?  
-2. How are they different from standard permissions?  
-3. What command is used to manage ACLs?  
-4. Give a real-world use case.  
-
----
-
-# Assessment Tips
-
-Good evidence includes:
-
-- Clear Linux commands  
-- Correct permission settings  
-- Screenshots before and after changes  
-- Clear written explanations  
-- Evidence of testing  
+- [ ] Users have been created  
+- [ ] Groups have been created  
+- [ ] Users are assigned correctly  
+- [ ] Folder ownership is configured  
+- [ ] Permissions are correctly applied  
+- [ ] All tests have been completed  
+- [ ] `scripts/check.sh` runs successfully  
 
 ---
 
 # Final Reminder
 
-The goal is not to block everything.
+This is a real-world security model.
+
+The goal is not just to make folders “work”.
 
 The goal is to ensure:
 
-> The right people have the right access to the right data.
+> Only the correct users can access the correct data using proper Linux access control.
