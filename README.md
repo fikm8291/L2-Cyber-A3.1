@@ -32,7 +32,7 @@ All work must be completed inside a GitHub Codespace using Linux commands.
 
 ---
 
-# How This Assessment Works (VERY IMPORTANT)
+# How This Assessment Works
 
 This assessment is automatically checked using a script.
 
