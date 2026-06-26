@@ -8,9 +8,18 @@ RESET="\033[0m"
 score=0
 total=22
 
+pass() {
+    echo -e "${GREEN}✔ PASS${RESET} $1"
+    ((score++))
+}
+
+fail() {
+    echo -e "${RED}✘ FAIL${RESET} $1"
+}
+
 echo ""
 echo "=================================================="
-echo "  AC 3.1 USER & GROUP ACCESS CONTROL CHECKER"
+echo "  AC 3.1 USER AND GROUP ACCESS CONTROL CHECKER"
 echo "=================================================="
 echo ""
 
@@ -19,10 +28,9 @@ echo " TASK 1 - SYSTEM STRUCTURE"
 echo "-------------------------------"
 
 if [ -d company ] && [ -d secret ]; then
-    echo -e "${GREEN}✔ PASS${RESET} Required folders exist"
-    ((score++))
+    pass "Required folders exist"
 else
-    echo -e "${RED}✘ FAIL${RESET} Missing required folders"
+    fail "Missing required folders"
 fi
 
 echo ""
@@ -32,11 +40,10 @@ echo " TASK 2 - USERS"
 echo "-------------------------------"
 
 check_user() {
-    if id "$1" &>/dev/null; then
-        echo -e "${GREEN}✔${RESET} User '$1' exists"
-        ((score++))
+    if id "$1" >/dev/null 2>&1; then
+        pass "User '$1' exists"
     else
-        echo -e "${RED}✘${RESET} Missing user '$1'"
+        fail "Missing user '$1'"
     fi
 }
 
@@ -52,11 +59,10 @@ echo " TASK 3 - GROUPS"
 echo "-------------------------------"
 
 check_group() {
-    if getent group "$1" >/dev/null; then
-        echo -e "${GREEN}✔${RESET} Group '$1' exists"
-        ((score++))
+    if getent group "$1" >/dev/null 2>&1; then
+        pass "Group '$1' exists"
     else
-        echo -e "${RED}✘${RESET} Missing group '$1'"
+        fail "Missing group '$1'"
     fi
 }
 
@@ -70,11 +76,10 @@ echo ""
 echo "Checking group membership..."
 
 check_membership() {
-    if id -nG "$1" | grep -qw "$2"; then
-        echo -e "${GREEN}✔${RESET} $1 belongs to $2"
-        ((score++))
+    if id "$1" >/dev/null 2>&1 && id -nG "$1" | grep -qw "$2"; then
+        pass "$1 belongs to $2"
     else
-        echo -e "${RED}✘${RESET} $1 is not a member of $2"
+        fail "$1 is not a member of $2"
     fi
 }
 
@@ -90,13 +95,12 @@ echo " TASK 4 - FOLDER OWNERSHIP"
 echo "-------------------------------"
 
 check_group_owner() {
-    group=$(stat -c "%G" "$1" 2>/dev/null)
+    actual=$(stat -c "%G" "$1" 2>/dev/null)
 
-    if [ "$group" = "$2" ]; then
-        echo -e "${GREEN}✔${RESET} $1 group ownership is $2"
-        ((score++))
+    if [ "$actual" = "$2" ]; then
+        pass "$1 group ownership is $2"
     else
-        echo -e "${RED}✘${RESET} $1 should have group ownership $2"
+        fail "$1 should have group $2 (currently $actual)"
     fi
 }
 
@@ -114,11 +118,10 @@ echo "-------------------------------"
 check_permissions() {
     perms=$(stat -c "%a" "$1" 2>/dev/null)
 
-    if [[ "$perms" == "750" || "$perms" == "770" ]]; then
-        echo -e "${GREEN}✔${RESET} $1 permissions are $perms"
-        ((score++))
+    if [ "$perms" = "750" ] || [ "$perms" = "770" ]; then
+        pass "$1 permissions are $perms"
     else
-        echo -e "${RED}✘${RESET} $1 permissions are $perms (expected 750 or 770)"
+        fail "$1 permissions are $perms (expected 750 or 770)"
     fi
 }
 
@@ -136,10 +139,9 @@ echo "-------------------------------"
 secretperm=$(stat -c "%a" secret 2>/dev/null)
 
 if [ "$secretperm" = "700" ]; then
-    echo -e "${GREEN}✔ PASS${RESET} Secret folder permissions are 700"
-    ((score+=2))
+    pass "Secret folder permissions are 700"
 else
-    echo -e "${RED}✘ FAIL${RESET} Secret folder permissions are $secretperm (expected 700)"
+    fail "Secret folder permissions are $secretperm (expected 700)"
 fi
 
 echo ""
@@ -148,19 +150,7 @@ echo "-------------------------------"
 echo " TASK 7 - ACCESS TESTING"
 echo "-------------------------------"
 
-echo "Manual check required:"
-echo ""
-echo "  1. Switch user:"
-echo "     su - hr_user"
-echo ""
-echo "  2. Verify the current user:"
-echo "     whoami"
-echo ""
-echo "  3. Try accessing another department folder."
-echo ""
-echo "  4. Confirm access is allowed only where appropriate."
-echo ""
-echo -e "${YELLOW}Remember to take a screenshot for your evidence.${RESET}"
+echo "Manual evidence required (not auto-graded)"
 
 echo ""
 
@@ -168,33 +158,19 @@ echo "-------------------------------"
 echo " TASK 8 - FINAL VERIFICATION"
 echo "-------------------------------"
 
-echo "Current directory permissions:"
-ls -ld company/*
-
+ls -ld company/* 2>/dev/null
 echo ""
-echo "Secret folder:"
-ls -ld secret
+ls -ld secret 2>/dev/null
 
 echo ""
 echo "========================================"
 echo " FINAL SCORE: $score / $total"
 echo "========================================"
-
 echo ""
 
-if [ "$score" -eq "$total" ]; then
-    echo -e "${GREEN}Excellent! All automatic checks passed.${RESET}"
-elif [ "$score" -ge 18 ]; then
-    echo -e "${YELLOW}Good work. A few items still need attention.${RESET}"
-else
-    echo -e "${RED}Review the failed checks before submitting.${RESET}"
-fi
+# This is the key for GitHub Classroom scoring
+echo "Score: $score/$total"
 
-echo ""
-echo "Take a screenshot of this output for your evidence."
-
-if [ "$score" -eq "$total" ]; then
-    exit 0
-else
-    exit 1
-fi
+# Always exit 0 so partial marks count
+exit 0
+``
