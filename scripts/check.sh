@@ -192,3 +192,9 @@ fi
 
 echo ""
 echo "Take a screenshot of this output for your evidence."
+
+if [ "$score" -eq "$total" ]; then
+    exit 0
+else
+    exit 1
+fi
