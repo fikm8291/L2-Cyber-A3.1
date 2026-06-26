@@ -167,9 +167,3 @@ echo "========================================"
 echo " FINAL SCORE: $score / $total"
 echo "========================================"
 echo ""
-
-# This line tells GitHub the actual score
-echo "::set-output name=score::$score"
-
-# Exit cleanly
-exit 0
