@@ -4,7 +4,7 @@
 
 **Assessment Criterion 3.1**
 
-> Create a user access control system to restrict unauthorised access.
+> Create a user access control system to restrict unauthorised access using users, groups, and Linux permissions.
 
 ---
 
@@ -28,40 +28,42 @@ Your task is to secure the system using:
 - Groups  
 - Linux file permissions  
 
+You will complete all work inside a GitHub Codespace using Linux commands.
+
 ---
 
 # How This Assessment Works (VERY IMPORTANT)
 
-This assessment is **checked using an automated script**.
+This assessment is automatically checked using a script.
 
 ### For EVERY task you must:
 
-1. Complete the task  
+1. Complete the task using Linux commands  
 2. Run the check script  
 3. Take a screenshot of the output  
-4. Save it in the `evidence/` folder  
+4. Save it in the evidence/ folder  
 
 ---
 
-## The command you will use after EVERY task:
+## The command you will run after EVERY task
 
-```bash
 bash scripts/check.sh
-```
+
+This script will show:
+- What you have completed correctly  
+- What still needs fixing  
+- Your current score  
 
 ---
 
 ## Evidence Rules
 
-You MUST save screenshots in:
+All screenshots must be saved in:
 
-```
 evidence/
-```
 
-Each screenshot must be named:
+Each screenshot must be named exactly:
 
-```
 task1.png
 task2.png
 task3.png
@@ -70,13 +72,15 @@ task5.png
 task6.png
 task7.png
 task8.png
-```
+
+Do NOT create subfolders.
 
 ---
 
 # Folder Structure
 
-```
+You will work with this system:
+
 company/
 ├── Finance
 ├── HR
@@ -85,7 +89,51 @@ company/
 └── Public
 
 secret/
-```
+
+---
+
+# Helpful Command Examples (Use During Tasks)
+
+## Navigation
+
+pwd
+ls
+tree
+ls -l
+
+---
+
+## Creating Users (example format)
+
+sudo adduser username
+id username
+
+---
+
+## Creating Groups (example format)
+
+sudo groupadd groupname
+groups username
+
+---
+
+## Adding Users to Groups
+
+sudo usermod -aG groupname username
+
+---
+
+## Permissions & Ownership
+
+ls -l
+chmod
+chown
+
+Examples:
+
+chmod 750 foldername
+chmod 755 foldername
+chown user:group foldername
 
 ---
 
@@ -93,129 +141,159 @@ secret/
 
 ---
 
-## Task 1 – Start and Inspect System
+## Task 1 – Start and Inspect the System
 
-Explore the system using Linux commands.
+Explore the folder structure and check what exists.
+
+Commands you may use:
+
+ls
+tree
+ls -l
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task1.png
-```
 
 ---
 
-## Task 2 – Create Users
+## Task 2 – Create Department Users
 
-Create the required department users.
+Create users for each department.
+
+Think about:
+- Clear usernames
+- One or more users per department
+
+Example format:
+
+sudo adduser username
+
+Verify:
+
+id username
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task2.png
-```
 
 ---
 
-## Task 3 – Create Groups
+## Task 3 – Create Department Groups
 
-Create department groups and assign users.
+Create groups for each department.
+
+Example:
+
+sudo groupadd groupname
+
+Add users to groups:
+
+sudo usermod -aG groupname username
+
+Check:
+
+groups username
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task3.png
-```
 
 ---
 
-## Task 4 – Set Folder Ownership
+## Task 4 – Assign Folder Ownership
 
-Assign each folder to the correct group.
+Assign each department folder to the correct group.
+
+Example:
+
+chown :groupname foldername
+
+Check:
+
+ls -l
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task4.png
-```
 
 ---
 
-## Task 5 – Set Permissions
+## Task 5 – Set Folder Permissions
 
-Apply correct Linux permissions to each folder.
+Apply appropriate permissions to restrict access.
+
+Example:
+
+chmod 750 foldername
+chmod 755 foldername
+
+Check:
+
+ls -l
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task5.png
-```
 
 ---
 
-## Task 6 – Secure Secret Folder
+## Task 6 – Secure the Secret Folder
 
-Restrict the `secret` folder so only the owner can access it.
+The secret folder must be restricted so only the owner can access it.
+
+Example:
+
+chmod 700 secret
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task6.png
-```
 
 ---
 
 ## Task 7 – Test Access
 
-Switch users and test folder access.
+Test your configuration by switching users.
+
+Commands:
+
+su username
+whoami
+cd foldername
+ls
 
 Then run:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Save screenshot as:
 
-```
 evidence/task7.png
-```
 
 ---
 
@@ -223,63 +301,27 @@ evidence/task7.png
 
 Run the final verification:
 
-```bash
 bash scripts/check.sh
-```
 
-Take a screenshot and save as:
+Take a screenshot of the output.
 
-```
+Save as:
+
 evidence/task8.png
-```
 
 ---
 
-# Helpful Commands
+# Final Reminder
 
-## Navigation
+After each task:
 
-```bash
-pwd
-ls
-tree
-```
-
-## Users
-
-```bash
-sudo adduser username
-id username
-```
-
-## Groups
-
-```bash
-sudo groupadd groupname
-sudo usermod -aG groupname username
-groups username
-```
-
-## Permissions
-
-```bash
-chmod
-chown
-ls -l
-```
+- Complete the task  
+- Run the check script  
+- Take a screenshot  
+- Save it in evidence/  
 
 ---
 
-# Submission Checklist
+The goal is:
 
-Before submitting, ensure:
-
-- [ ] All users created  
-- [ ] All groups created  
-- [ ] Users assigned correctly  
-- [ ] Folder ownership correct  
-- [ ] Permissions correct  
-- [ ] Secret folder secured  
-- [ ] `bash scripts/check.sh` run after every task  
-- [ ] All screenshots saved in `evidence/`  
-- [ ] Filenames match task numbers  
+> Ensure the right users have access to the right folders using users, groups, and Linux permissions.
