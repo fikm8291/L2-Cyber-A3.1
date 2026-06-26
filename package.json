@@ -1,0 +1,12 @@
+{
+  "name": "access-control-lab",
+  "version": "1.0.0",
+  "description": "Assessment for AC 3.1",
+  "private": true,
+
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "reset": "bash scripts/reset.sh",
+    "check": "bash scripts/check.sh"
+  }
+}
