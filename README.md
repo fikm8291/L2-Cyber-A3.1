@@ -20,15 +20,13 @@ The company stores sensitive data across multiple departments:
 - Management  
 - Public information  
 
-At the moment, the file server is not properly secured. Anyone can access most folders, which creates a serious security risk.
+At the moment, all staff can access all folders. This is a serious security risk.
 
-Your job is to design and implement a **realistic Linux access control system** using:
+Your task is to design and implement a secure Linux system using:
 
 - Users  
 - Groups  
 - File permissions  
-
-You must ensure that only the correct departments can access their own data.
 
 ---
 
@@ -36,11 +34,11 @@ You must ensure that only the correct departments can access their own data.
 
 By completing this assessment, you will demonstrate:
 
-- How Linux users and groups are used in access control  
+- How Linux users and groups control access  
 - How file ownership affects security  
-- How file permissions enforce restrictions  
+- How permissions restrict access  
 - How to apply least privilege in a real system  
-- How to test and verify access control systems  
+- How to test and verify security configurations  
 
 ---
 
@@ -48,13 +46,11 @@ By completing this assessment, you will demonstrate:
 
 This assessment is completed entirely inside your GitHub Codespace.
 
-Open the terminal before starting.
+Open the terminal.
 
 ---
 
 ## Setup the environment
-
-Run:
 
 ```bash
 bash scripts/setup.sh
@@ -62,9 +58,7 @@ bash scripts/setup.sh
 
 ---
 
-## Reset the environment (if needed)
-
-If you make a mistake or want to start again:
+## Reset if needed
 
 ```bash
 bash scripts/reset.sh
@@ -74,8 +68,6 @@ bash scripts/reset.sh
 
 ## Check your progress
 
-At any point, you can verify your work:
-
 ```bash
 bash scripts/check.sh
 ```
@@ -83,8 +75,6 @@ bash scripts/check.sh
 ---
 
 # Folder Structure
-
-You will be working with the following system:
 
 ```
 company/
@@ -99,9 +89,37 @@ secret/
 
 ---
 
-# Part 1 – Understand the Current System
+# Evidence Rules (IMPORTANT)
 
-Start by exploring the environment:
+You must take screenshots during the assessment.
+
+### Each screenshot must:
+
+- Be saved in:
+  ```
+  evidence/screenshots/
+  ```
+
+- Be named using this format:
+
+```
+task1.png
+task2.png
+task3.png
+...
+```
+
+- Match the task number you are completing
+
+---
+
+# Your Tasks
+
+---
+
+## Task 1 – Inspect the System
+
+Explore the current system using:
 
 ```bash
 pwd
@@ -110,153 +128,175 @@ ls -l
 tree
 ```
 
-You are looking to understand:
+Take a screenshot of your terminal showing the current folder structure and permissions.
 
-- Who owns each folder  
-- What permissions are currently set  
-- Which folders are exposed to all users  
+Save as:
 
-Take note of anything that looks insecure.
+```
+evidence/screenshots/task1.png
+```
 
 ---
 
-# Part 2 – Create Users for Each Department
+## Task 2 – Create Department Users
 
-In this system, each department should have its own user account.
-
-Create the following users:
+Create user accounts for each department:
 
 - hr_user  
 - finance_user  
 - marketing_user  
 - management_user  
 
-Use Linux user management commands to create them.
+Use Linux user creation commands.
 
-> Hint: You may need administrator privileges (`sudo`).
+After creating users, verify they exist.
 
-After creating users, verify they exist using system commands.
+Take a screenshot of:
+- user creation commands OR  
+- system confirmation that users exist  
+
+Save as:
+
+```
+evidence/screenshots/task2.png
+```
 
 ---
 
-# Part 3 – Create Department Groups
+## Task 3 – Create Department Groups
 
-Each department should also have its own group.
-
-Create groups for:
+Create groups for each department:
 
 - hr  
 - finance  
 - marketing  
 - management  
 
-Then assign each user to the correct group.
+Then assign each user to their correct group.
 
-> This is important because permissions will be controlled through groups, not individual users.
+Verify group membership.
 
-Verify group membership after assignment.
+Take a screenshot showing:
+- group creation OR  
+- user group assignment results  
 
----
+Save as:
 
-# Part 4 – Assign Ownership of Folders
-
-Each department folder should belong to its matching group.
-
-You will need to:
-
-- Change group ownership of each folder  
-- Ensure the correct department controls the correct folder  
-
-Example mapping:
-
-- HR folder → hr group  
-- Finance folder → finance group  
-- etc.
-
-Use ownership commands to apply these changes.
+```
+evidence/screenshots/task3.png
+```
 
 ---
 
-# Part 5 – Set Folder Permissions
+## Task 4 – Assign Folder Ownership
 
-Now apply Linux permissions so that:
+Each department folder must belong to its matching group.
 
-- Departments can access their own folders  
-- Other departments cannot access restricted data  
-- Public data remains accessible to everyone  
+You will:
 
-You will need to combine:
-- `chmod`
-- group ownership
-- permission settings (read/write/execute)
+- Change group ownership of folders  
+- Ensure correct mapping between department and folder  
 
-> Think carefully about how directories behave differently from files.
+Take a screenshot showing:
 
----
+- folder ownership details (`ls -l` or similar output)
 
-# Part 6 – Secure the Secret Folder
+Save as:
 
-The `secret` folder contains highly sensitive information.
-
-It must be restricted so that:
-
-- Only the system administrator (or owner) can access it  
-- No department users can view it  
-
-Apply the strongest reasonable Linux permissions.
+```
+evidence/screenshots/task4.png
+```
 
 ---
 
-# Part 7 – Test Access Control
+## Task 5 – Set Folder Permissions
 
-You must now test your system.
+Configure permissions so that:
 
-Switch between users:
+- Each department can access its own folder  
+- Other departments cannot access restricted folders  
+- Public folder remains accessible  
+
+Use appropriate Linux permission commands.
+
+Take a screenshot showing final permissions:
+
+```
+evidence/screenshots/task5.png
+```
+
+---
+
+## Task 6 – Secure the Secret Folder
+
+The `secret` folder must be fully restricted.
+
+Only the owner should have access.
+
+Take a screenshot showing:
+
+- permission settings for `secret`
+
+Save as:
+
+```
+evidence/screenshots/task6.png
+```
+
+---
+
+## Task 7 – Test User Access
+
+Switch between users and test access:
 
 ```bash
 su - hr_user
 ```
 
 Try accessing:
-- HR folder (should work)
-- Finance folder (should be restricted)
+- HR folder  
+- Finance folder  
+- Public folder  
+- Secret folder  
 
-Repeat this for different users.
+Repeat for at least one other user.
 
-Also test:
-- Public folder access
-- Secret folder access
+Take a screenshot showing at least one access test result.
 
-> Your goal is to confirm the system behaves correctly, not just configure it.
+Save as:
+
+```
+evidence/screenshots/task7.png
+```
 
 ---
 
-# Part 8 – Final Verification
+## Task 8 – Final Verification
 
-Return to your main user and run:
+Run:
 
 ```bash
 ls -l company
 ls -ld company/*
+bash scripts/check.sh
 ```
 
-Check:
+Take a final screenshot showing:
 
-- Folder ownership  
-- Group assignments  
-- Permission accuracy  
+- final permissions  
+- or check script output  
 
-Run the automated checker:
+Save as:
 
-```bash
-bash scripts/check.sh
+```
+evidence/screenshots/task8.png
 ```
 
 ---
 
 # Helpful Commands
 
-## System navigation
+## Navigation
 
 ```bash
 pwd
@@ -267,17 +307,17 @@ tree
 ## Users
 
 ```bash
-whoami
-id
 sudo adduser username
+id username
+whoami
 ```
 
 ## Groups
 
 ```bash
-groups
 sudo groupadd groupname
 sudo usermod -aG groupname username
+groups username
 ```
 
 ## Permissions
@@ -285,37 +325,21 @@ sudo usermod -aG groupname username
 ```bash
 chmod
 chown
-```
-
-Example formats (do not rely on these alone):
-
-```bash
-chmod 750 folder
-chmod 700 folder
+ls -l
 ```
 
 ---
 
-# Evidence Checklist
+# Submission Checklist
 
-Before submission, ensure:
+Before submitting, ensure:
 
-- [ ] Users have been created  
-- [ ] Groups have been created  
-- [ ] Users are assigned correctly  
-- [ ] Folder ownership is configured  
-- [ ] Permissions are correctly applied  
-- [ ] All tests have been completed  
-- [ ] `scripts/check.sh` runs successfully  
-
----
-
-# Final Reminder
-
-This is a real-world security model.
-
-The goal is not just to make folders “work”.
-
-The goal is to ensure:
-
-> Only the correct users can access the correct data using proper Linux access control.
+- [ ] All users created  
+- [ ] All groups created  
+- [ ] Users assigned correctly  
+- [ ] Folder ownership configured  
+- [ ] Permissions set correctly  
+- [ ] Secret folder secured  
+- [ ] Access tested using multiple users  
+- [ ] All screenshots saved correctly (task1–task8)  
+- [ ] `bash scripts/check.sh` runs successfully  
