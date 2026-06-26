@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "======================================"
-echo " Setting up User Access Control Lab"
-echo "======================================"
+echo "Setting up assessment..."
 
 mkdir -p company
 
@@ -13,23 +11,26 @@ mkdir -p company/Marketing
 mkdir -p company/Management
 mkdir -p company/Public
 
-mkdir -p evidence
 mkdir -p evidence/screenshots
 
 mkdir -p secret
 
-touch company/HR/employees.txt
-touch company/Finance/budget.txt
-touch company/Marketing/campaign.txt
-touch company/Public/company-news.txt
-touch company/Management/strategy.txt
+echo "Employee Records" > company/HR/employees.txt
 
-echo "CONFIDENTIAL PAYROLL DATA" > secret/payroll.txt
+echo "Annual Budget" > company/Finance/budget.txt
+
+echo "Marketing Campaign" > company/Marketing/campaign.txt
+
+echo "Management Strategy" > company/Management/strategy.txt
+
+echo "Welcome to Northbridge!" > company/Public/news.txt
+
+echo "Payroll Information" > secret/payroll.txt
 
 chmod -R 755 company
-chmod 700 secret
+
+chmod 755 secret
 
 echo ""
-echo "Lab ready."
+echo "Assessment ready."
 echo ""
-echo "Open README.md to begin."
